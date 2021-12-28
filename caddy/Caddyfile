@@ -1,0 +1,34 @@
+{
+  admin off
+#  log {
+#      output file /var/log/caddy/access.log
+#      level INFO
+#  }
+  servers :443 {
+      protocol {
+          experimental_http3
+      }
+  }
+}
+
+:443, abc.com {
+  route {
+    forward_proxy {
+        basic_auth superuser passwd
+        hide_ip
+        hide_via
+        probe_resistance randomDomain.com  #Modify to a secret domain, like password
+    }
+    file_server {
+        root /usr/share/caddy
+        browse
+    }
+  }
+}
+
+:81 {
+  file_server {
+        root /usr/share/caddy
+        browse
+    }
+}

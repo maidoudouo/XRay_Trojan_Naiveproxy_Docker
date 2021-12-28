@@ -1,0 +1,46 @@
+version: '3.6'
+services:
+  caddy:
+    image: pocat/naiveproxy
+    container_name: breakwall_caddy2_with_naiveproxy
+    restart: always
+    environment:
+      PATH: "/etc/naiveproxy/Caddyfile"
+    networks:
+      breakwall:
+        aliases:
+          - caddy
+    dns:
+      - 8.8.8.8
+      - 208.67.222.222
+    ports:
+      - "80:81"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/naiveproxy/Caddyfile
+      - ./caddy/caddy_cert:/root/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory/
+      - ./caddy/caddy_config:/root/.config/
+      - ./caddy/www:/usr/share/caddy/
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  xray:
+    image: teddysun/xray
+    container_name: breakwall_xray
+    restart: always
+    volumes:
+      - ./xray/config.json:/etc/xray/config.json
+      - ./caddy/caddy_cert:/cert
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - "4443:4443"
+    depends_on: 
+      - caddy
+    networks:
+      breakwall:
+        aliases:
+          - xray
+
+networks:
+    breakwall:

@@ -1,0 +1,73 @@
+{
+  "log": {
+      "loglevel": "warning"
+  },
+  "inbounds": [
+      {
+          "port": 4443,
+          "protocol": "vless",
+          "settings": {
+              "clients": [
+                  {
+                      "id": "98bc7998-8e06-4193-84d2-38f2e10ee763",
+                      "flow": "xtls-rprx-direct",
+                      "level": 0
+                  }
+              ],
+              "decryption": "none",
+              "fallbacks": [
+                  {
+                        "dest": 1310,
+                        "xver": 1
+                  }
+              ]
+          },
+          "streamSettings": {
+              "network": "tcp",
+              "security": "xtls",
+              "xtlsSettings": {
+                  "alpn": [
+                      "http/1.1"
+                  ],
+                  "certificates": [
+                      {
+                          "ocspStapling": 3600,
+                          "oneTimeLoading": false,
+                          "certificateFile": "/cert/abc.com/abc.com.crt",
+                          "keyFile": "/cert/abc.com/abc.com.key"
+                      }
+                  ]
+              }
+          }
+      },
+      {
+        "port": 1310,
+        "listen": "127.0.0.1",
+        "protocol": "trojan",
+        "settings": {
+            "clients": [
+                {
+                    "password": "38f2e10ee763",
+                    "level": 0
+                }
+            ],
+            "fallbacks": [
+                {
+                    "dest": "caddy:81"
+                }
+            ]
+        },
+        "streamSettings": {
+            "network": "tcp",
+            "security": "none",
+            "tcpSettings": {
+                "acceptProxyProtocol": true
+            }
+        }
+    }],
+  "outbounds": [
+      {
+          "protocol": "freedom"
+      }
+  ]
+}
