@@ -72,7 +72,7 @@ sudo apt-get install docker-ce
 
 ## 安装Docker Compose（容器编排工具）
 ```
-sudo curl -L https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
@@ -81,7 +81,7 @@ docker-compose --version
 
 ```
 Centos:
-yum install git
+yum install -y git
 
 Ubuntu:
 sudo apt-get install git
@@ -100,7 +100,7 @@ chmod +x tcp.sh
 ## 下载源码
 
 ```
-git clone https://github.com/maidoudouo/XRay_Trojan_Docker
+git clone https://github.com/maidoudouo/XRay_Trojan_Naiveproxy_Docker
 ```
 
 ## Setting
