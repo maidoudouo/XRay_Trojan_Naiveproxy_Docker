@@ -81,7 +81,7 @@ docker-compose --version
 
 ```
 Centos:
-yum install git
+yum install -y git
 
 Ubuntu:
 sudo apt-get install git
@@ -100,7 +100,7 @@ chmod +x tcp.sh
 ## 下载源码
 
 ```
-git clone https://github.com/maidoudouo/XRay_Trojan_Docker
+git clone https://github.com/maidoudouo/XRay_Trojan_Naiveproxy_Docker
 ```
 
 ## Setting
