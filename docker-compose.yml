@@ -25,7 +25,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
 
   xray:
-    image: teddysun/xray
+    image: teddysun/xray:1.6.1
     container_name: breakwall_xray
     restart: always
     volumes:
